@@ -132,7 +132,8 @@ body.paper-body { background: var(--night); color: var(--ink); font-family: var(
 .h-word { margin: auto 0 0; padding-top: 3vh; font-family: var(--font-display); font-size: min(23vw, 36vh); line-height: .92; color: #E9C75A; letter-spacing: -.01em; }
 .h-title { position: relative; z-index: 2; margin: clamp(8px, 1.2vw, 18px) 0 0; max-width: min(19em, 62vw); font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, min(2.9vw, 4.6vh), 44px); line-height: 1.14; }
 .h-line { position: relative; z-index: 2; margin: clamp(14px, 1.6vw, 22px) 0 0; max-width: 46ch; color: #C4C0D8; font-size: clamp(16px, 1.45vw, 20px); line-height: 1.5; }
-.h-authors { position: relative; z-index: 2; margin: 18px 0 0; font-size: 14px; }
+.h-authors { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 18px 0 0; font-size: 14px; line-height: 1.6; }
+.h-authors > span { white-space: nowrap; }
 .h-art { position: absolute; z-index: 0; top: clamp(10px, 2vw, 30px); right: clamp(-130px, -6vw, -10px); width: min(44vw, 74vh); aspect-ratio: 1; display: grid; place-items: center; }
 .h-art .kolam { width: 100%; height: auto; filter: drop-shadow(0 0 26px rgba(242,162,12,.28)); }
 .hero2 .skyline { z-index: 1; }

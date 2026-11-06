@@ -6,6 +6,10 @@ An interactive research paper for the Indian Knowledge System course (23SVS1001R
 
 The paper compares what different Indian practices protected: integrity, confidentiality, encoding, and hidden meaning or controlled access. Illustrated scenes and live figures let readers follow the argument and check the calculations.
 
+## Group members
+
+Ved Pramod Jamkar · Manan Sinha · Aashutosh Kumar · Ayan Mulla · Saiprasad Maroti Gawali
+
 ## Technology stack
 
 | Part | Implementation |
@@ -69,7 +73,7 @@ Animations trace matching recitation occurrences and assemble the actual Katapay
 - Illustrations are our own explanations, not historical evidence.
 - Recitation counts use one line, Ṛgveda 1.1.1, with the pattern formulas stated in the paper.
 - The literature search was not exhaustive. Papers 6 and 7 remain marked as pending.
-- Group names, search details and the breakdown of group contributions still need completing.
+- Search details and the breakdown of group contributions still need completing.
 - Sources, qualifications and pending work are included in the paper.
 
 ## Publishing
