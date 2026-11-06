@@ -15,7 +15,7 @@
       { k: 'Middle dates', name: 300, method: 1100, why: 'Both texts at the middle of their date ranges.' },
       { k: 'Furthest dates', name: 0, method: 1300, why: 'Kama Sutra at its earliest, Jayamaṅgalā at its latest.' }
     ];
-    var leaves = [], axis = $('yrs-axis'), ctl = $('yrs-ctl'), num = $('yrs-num'), btns = [];
+    var leaves = [], axis = $('yrs-axis'), ctl = $('yrs-ctl'), num = $('yrs-num'), btns = [], selected = SCEN[1];
     for (var i = 0; i < N; i++) {
       var y = START + i * 100, d = doc.createElement('div');
       d.className = 'yr'; d.style.setProperty('--i', i); host.appendChild(d); leaves.push(d);
@@ -23,6 +23,7 @@
       a.textContent = (i % 4 === 0) ? (y < 0 ? -y + ' BCE' : y + ' CE') : ''; axis.appendChild(a);
     }
     function show(s, announce) {
+      selected = s;
       var gap = s.method - s.name;
       leaves.forEach(function (l, i) {
         var from = START + i * 100, to = from + 100, c = 'yr';
@@ -43,7 +44,7 @@
     });
     num._v = 0;
     show(SCEN[1]);
-    P.inView(host, function () { host.classList.add('is-in'); P.roll(num, 800); }, { threshold: 0.25 });
+    P.inView(host, function () { host.classList.add('is-in'); P.roll(num, selected.method - selected.name); }, { threshold: 0.25 });
   })();
 
   /* ------------------------------------------------ Fig. 4: letter counting */
