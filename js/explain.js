@@ -14,6 +14,14 @@
     if(!P.rm() && 'IntersectionObserver' in window) new IntersectionObserver(function(entries){n.classList.toggle('ex-playing',entries[0].isIntersecting);}).observe(n);
   }
   all('.ex-scene').forEach(scene);
+  all('.ex-evidence .ex-source').forEach(function(n,i){n.style.setProperty('--source-order',i);});
+  /* A sleeping screen is fine. Offscreen and background-tab motion need not run. */
+  if ('IntersectionObserver' in window) {
+    var folioMotion=new IntersectionObserver(function(entries){entries.forEach(function(entry){entry.target.classList.toggle('motion-out',!entry.isIntersecting);});},{rootMargin:'80px'});
+    all('.hero2,.seg').forEach(function(n){folioMotion.observe(n);});
+  }
+  function visibility(){D.body.classList.toggle('motion-idle',D.hidden);}
+  D.addEventListener('visibilitychange',visibility);visibility();
 
   /* Source leaves retain source identity, tier and reading status separately. */
   (function(){
@@ -66,8 +74,24 @@
     var label=el('p','ex-courses','Top → bottom: Pada · Krama · Jaṭā · Ghana. Each brick is one word said.');host.querySelector('.c1-art').appendChild(label);
     var ribbons=[];
     all('.c1-row',host).forEach(function(row,i){var rib=el('div','ex-ribbon');rib.setAttribute('role','img');defs[i][1].forEach(function(word){var tick=el('i');tick.dataset.word=word;rib.appendChild(tick);});var group=el('div','ex-seq');append(group,el('p','ex-sequence-label',defs[i][0]+' · reading order →'),rib);row.after(group);ribbons.push(rib);});
-    function mark(q){ribbons.forEach(function(rib,i){all('i',rib).forEach(function(t){t.classList.toggle('is-word',+t.dataset.word===q);});rib.setAttribute('aria-label',defs[i][0]+': '+defs[i][1].filter(function(x){return x===q;}).length+' occurrences of '+C.WORDS[q]+', in reading order.');});}
+    function mark(q){
+      var styleKeys=['pada','krama','jata','ghana'];
+      ribbons.forEach(function(rib,i){
+        var occurrence=0, hits=defs[i][1].filter(function(x){return x===q;}).length;
+        all('i',rib).forEach(function(t,position){
+          var on=+t.dataset.word===q;t.classList.toggle('is-word',on);
+          if(on){
+            var delay=occurrence++ * .28;
+            t.style.setProperty('--trace-delay',delay+'s');
+            var brick=host.querySelector('.brk[data-style="'+styleKeys[i]+'"][data-position="'+position+'"]');
+            if(brick)brick.style.setProperty('--trace-delay',delay+'s');
+          }
+        });
+        rib.setAttribute('aria-label',defs[i][0]+': '+hits+' occurrences of '+C.WORDS[q]+', in reading order.');
+      });
+    }
     all('.plq',host).forEach(function(b,i){b.addEventListener('click',function(){mark(i);});});mark(3);
+    P.inView(host,function(){host.classList.add('ex-recitation-trace');},{threshold:.08});
   })();
 
   /* Fig. 2 labels the source endpoints as they move with the date choice. */

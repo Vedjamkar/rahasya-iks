@@ -273,7 +273,7 @@
         var tone = [0.84, 0.95, 1.04, 1.13][ci] + (((c.k * 37 + ci * 11) % 9) - 4) / 100;
         var col = { t: ISO.shade(CL.t, tone), l: ISO.shade(CL.l, tone), r: ISO.shade(CL.r, tone) };
         var b = ISO.brick(g, c.x + 0.03, c.y + 0.03, ci * BH, BW - 0.06, BD - 0.06, BH - 0.05, S, col);
-        b.dataset.w = c.w; polys += 3; s.bricks[c.k] = b;
+        b.dataset.w = c.w; b.dataset.style = s.k; b.dataset.position = c.k; polys += 3; s.bricks[c.k] = b;
       });
     });
     STY.forEach(function (s) { s.bricks.forEach(function (b) { b._o = order++; }); });
@@ -416,7 +416,7 @@
     ap(host, lab, inp, ex, slots, plate, steps, det);
     var cap = h('figcaption', 'cap'); cap.innerHTML = '<b>Fig. 5.</b> Each consonant stands for a digit. Vowels count for nothing, and in a cluster only the last consonant counts. Anyone with the table can read it. It was built for memory, not to hide information <a class="cite" href="#ref-8">[8]</a>.';
     host.appendChild(cap);
-    var seen = false, last = null;
+    var seen = false;
     function run(animate) {
       var r = toNumber(inp.value); exb.forEach(function (b, k) { b.setAttribute('aria-pressed', String(EX[k] === inp.value)); });
       slots.textContent = '';
@@ -424,19 +424,21 @@
         var s = h('span', 'k5-slot'); s.style.setProperty('--i', k);
         ap(s, h('span', 'k5-l', p.letters.join('+')), h('b', 'k5-d', String(p.digit))); slots.appendChild(s);
       });
-      if (!r.parts.length) { num.textContent = '–'; num._v = 0; steps.textContent = 'Type a word with at least one consonant.'; last = null; return; }
+      if (!r.parts.length) { num.textContent = '–'; num.removeAttribute('aria-label'); steps.textContent = 'Type a word with at least one consonant.'; return; }
       steps.textContent = 'Digits in order: ' + r.order.join(' ') + '. Read right to left: ' + r.number + '.';
-      var len = r.number.length, s = r.number;
-      if (animate && seen && len <= 12 && s !== last) {
-        var to = parseInt(s, 10);
-        P.roll(num, to, function (x) { var t = String(Math.round(x)); while (t.length < len) t = '0' + t; return t; });
-        setTimeout(function () { if (inp.value && toNumber(inp.value).number === s) num.textContent = s; }, 1000);
-      } else { num.textContent = s; num._v = parseInt(s, 10); }
-      last = s;
+      /* Each real digit enters its final place. No unrelated intermediate numbers. */
+      num.textContent = ''; num.setAttribute('aria-label', r.number); num.style.setProperty('--digit-count', r.number.length);
+      r.number.split('').forEach(function (digit, k) {
+        var cell = h('span', 'k5-digit', digit);
+        cell.style.setProperty('--digit-order', r.number.length - 1 - k);
+        if (animate && seen && !P.rm()) cell.classList.add('is-assembling');
+        num.appendChild(cell);
+      });
     }
     run(false);
     var tm; inp.addEventListener('input', function () { clearTimeout(tm); tm = setTimeout(function () { run(true); var n = toNumber(inp.value); if (n.parts.length) say(inp.value + ' is ' + n.number); }, 150); });
-    P.inView(slots, function () { seen = true; host.classList.add('is-in'); last = null; num._v = 0; run(true); }, { threshold: 0.25 });
+    P.inView(slots, function () { seen = true; host.classList.add('is-in'); }, { threshold: 0.25 });
+    P.inView(plate, function () { seen = true; host.classList.add('is-in'); run(true); }, { threshold: 0.5 });
   })();
 
   /* ------------------------------------------------ Fig. 6: RSA (section 7) */

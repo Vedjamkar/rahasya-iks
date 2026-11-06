@@ -10,6 +10,10 @@ The paper compares what different Indian practices protected: integrity, confide
 
 Open `index.html` in a browser. This is a plain static site: no installation, build step, server, or external script dependencies are needed.
 
+## Motion
+
+Animations trace matching recitation occurrences and assemble the actual Katapayadi digits right to left. Motion respects reduced-motion settings and pauses outside the reading area or in a background tab.
+
 ## Research limits
 
 - We found no cipher in the Vedas. Recitation protects a text against changes; the checksum connection is our comparison.

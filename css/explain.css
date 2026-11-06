@@ -299,3 +299,40 @@ figure.leaf.after { margin-top:30px; }
  .ex-scene .ex-draw { stroke-dashoffset:0; }
  .ex-traveller { display:none; }
 }
+
+/* Follow a mechanism, rather than making measured bars change size in a loop. */
+.ex-scene.is-in .ex-bar { animation:none; transform:none; }
+.ex-method.is-in .ex-process li { animation:ex-method-stage 8s ease-in-out infinite; animation-delay:calc(var(--i)*1.8s); }
+.ex-method.is-in .ex-beat,.ex-method.is-in .ex-pass,.ex-method.is-in .ex-traveller { animation:none; }
+.ex-method .ex-process li::before { content:""; position:absolute; left:0; right:0; bottom:-9px; height:2px; background:var(--gold); transform:scaleX(0); transform-origin:0 50%; }
+.ex-method.is-in .ex-process li::before { animation:ex-method-line 8s ease-in-out infinite; animation-delay:calc(var(--i)*1.8s); }
+.ex-evidence.is-in .ex-source { animation:ex-source-read 9s ease-in-out infinite; animation-delay:calc(var(--source-order,0)*2.5s); }
+.ex-evidence.is-in .ex-beat { animation:none; }
+@keyframes ex-method-stage { 0%,25%,100% { transform:none; } 8%,17% { transform:translateY(-5px); } }
+@keyframes ex-method-line { 0% { transform:scaleX(0); opacity:0; } 3% { opacity:1; } 18% { transform:scaleX(1); opacity:1; } 25%,100% { transform:scaleX(1); opacity:0; } }
+@keyframes ex-source-read { 0%,30%,100% { transform:none; } 9%,21% { transform:translateY(-4px); } }
+
+/* Both representations point to the exact same word occurrences. */
+.ex-recitation-trace .ex-ribbon .is-word { animation:ex-word-mark 6s ease-in-out infinite; animation-delay:calc(var(--trace-delay,0s) + 2.3s); }
+.ex-recitation-trace .brk.hit { animation:ex-word-brick 6s ease-in-out infinite; animation-delay:calc(var(--trace-delay,0s) + 2.3s); }
+@keyframes ex-word-mark { 0%,10%,100% { transform:translateY(-3px); opacity:.8; } 3%,6% { transform:translateY(-7px) scaleY(1.18); opacity:1; } }
+@keyframes ex-word-brick { 0%,10%,100% { transform:translateY(-9px); } 3%,6% { transform:translateY(-15px); } }
+
+/* The first input digit enters the rightmost output place first. */
+#fig-5 .k5-num { display:inline-flex; flex-wrap:wrap; max-width:100%; font-size:clamp(22px,calc(180px / var(--digit-count,2)),112px); }
+.k5-digit { display:inline-block; }
+.k5-digit.is-assembling { animation:ex-digit-place .75s var(--ease-out) backwards; animation-delay:calc(.45s + var(--digit-order)*.16s); }
+@keyframes ex-digit-place { from { transform:translateY(-20px); opacity:.35; } to { transform:none; opacity:1; } }
+
+/* Keep informative loops from consuming battery outside the reading area. */
+.paper-body .motion-out *, .paper-body .motion-out *::before, .paper-body .motion-out *::after,
+.paper-body.motion-idle *, .paper-body.motion-idle *::before, .paper-body.motion-idle *::after { animation-play-state:paused !important; }
+
+@media(prefers-reduced-motion:reduce) {
+ .ex-method.is-in .ex-process li,.ex-method.is-in .ex-process li::before,
+ .ex-evidence.is-in .ex-source,.ex-recitation-trace .ex-ribbon .is-word,
+ .ex-recitation-trace .brk.hit,.k5-digit.is-assembling { animation:none !important; }
+ .ex-method .ex-process li::before { display:none; }
+ .ex-recitation-trace .ex-ribbon .is-word { transform:translateY(-3px); opacity:1; }
+ .k5-digit { transform:none; opacity:1; }
+}
