@@ -705,7 +705,7 @@ body.has-overlay { overflow: hidden; }
 .view-story { padding-bottom: 0; }
 @media (min-width: 900px) and (max-width: 1260px) { .chapter-inner { padding-right: 60px; } }
 
-/* === pass2-B:start (story chapters: openers, hero motifs, timeline strip, niches, plate, gaps, method) === */
+/* Story layouts: openers, motifs, timeline, niches, gaps and method. */
 /* ---- opener a: bleed ---- */
 .opener.op-a { padding: clamp(36px, 5vw, 70px) 0 clamp(30px, 4vw, 56px); min-height: clamp(240px, 30vw, 430px); display: flex; align-items: center; margin-bottom: 36px; }
 .opener.op-a { --on: clamp(220px, 34vw, 560px); }
@@ -976,14 +976,14 @@ body.has-overlay { overflow: hidden; }
 .src-shelf .tier-legend { margin-top: 14px; font-size: 12.5px; color: var(--ink-soft); }
 @media (max-width: 599px) { .src-leaf { grid-template-columns: 1fr; gap: 8px; padding: 12px 38px 12px 38px; } .src-leaf .hole-a { left: 12px; } .src-leaf .hole-b { right: 12px; } .src-leaves::before { left: 18px; } .src-leaves::after { right: 18px; } .src-leaf:nth-child(odd) { margin-right: 6px; } .src-leaf:nth-child(even) { margin-left: 6px; } }
 
-/* ---- pass 2 reduced motion: nothing stays hidden ---- */
+/* Reduced motion: all content remains visible. */
 @media (prefers-reduced-motion: reduce) {
   .js .leaf-name, .js .leaf-method, .js .leaf-e, .js .run-cap { opacity: 1 !important; transform: none !important; }
   .mstrip .cord { transform: none !important; } .method-steps::before { transform: none !important; }
   .m-leaflens .ll-lens, .m-leaflens .ll-mag, .op-stat-ring, .kp-tile { animation: none !important; }
   .leaf-method::after { animation: none !important; opacity: .45; }
 }
-/* === pass2-B:end === */
+/* End story layout styles. */
 
 /* ------------------------------------------------ reduced motion */
 @media (prefers-reduced-motion: reduce) {

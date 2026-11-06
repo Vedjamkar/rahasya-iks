@@ -183,7 +183,7 @@ label.hint { display: block; }
 .c6-ok { margin: 14px 0 0; color: var(--ink); font-size: 15px; font-weight: 500; }
 @media (prefers-reduced-motion: reduce) { .is-live * { animation: none !important; } }
 
-/* instructor: breathing room under takeaways */
+/* Spacing below section takeaways. */
 #fig-table1, #fig-sources { margin-top: clamp(30px, 4vw, 56px); }
 
 @media (prefers-reduced-motion: reduce) {

@@ -544,7 +544,7 @@
     return s;
   };
 
-  /* ================= pass 2: story-chapter hero motifs ================= */
+  /* ================= Story section motifs ================= */
   var DEVA_STYLE = { fontFamily: 'var(--font-deva)' };
 
   /* ch1: a palm-leaf manuscript under a brass lens (darpan). Class .is-checked on any ancestor swaps CLAIM for SOURCE. */
