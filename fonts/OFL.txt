@@ -1,0 +1,1 @@
+The three font families in this folder, Poppins, Rozha One and Tiro Devanagari Sanskrit, are licensed under the SIL Open Font License, Version 1.1 (https://openfontlicense.org). You may use, study, modify and redistribute them under that licence, provided the copyright notices and the licence text travel with any copy, and the fonts are not sold on their own.
